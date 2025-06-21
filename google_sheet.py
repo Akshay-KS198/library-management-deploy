@@ -1,14 +1,21 @@
 import os
+import json
 from dotenv import load_dotenv
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 load_dotenv()
+
 SHEET_NAME = "LibraryBooks"
-SERVICE_ACCOUNT_PATH = os.getenv("GOOGLE_CREDS")
+GOOGLE_CREDS_JSON = os.getenv("GOOGLE_CREDS_JSON")
+
+if not GOOGLE_CREDS_JSON:
+    raise ValueError("Missing GOOGLE_CREDS_JSON environment variable")
+
+service_account_info = json.loads(GOOGLE_CREDS_JSON)
 
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_PATH, scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(service_account_info, scope)
 client = gspread.authorize(creds)
 sheet = client.open(SHEET_NAME).sheet1
 
