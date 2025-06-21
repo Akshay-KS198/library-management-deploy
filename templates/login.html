@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+     <img
+              src="https://res.cloudinary.com/dk3ygxfih/image/upload/v1742048118/Group_7731_xsk2b7.png"
+              alt="website-logo" />
+<h2>Login</h2>
+<form method="POST">
+    <select name="username" placeholder="Enter username" required class="username-input-field">
+       <option value="admin1">admin1</option>
+       <option value="user1">user1</option>
+       <option value="user2">user2</option>
+    </select>
+    <button type="submit" class="login-btn">Login</button>
+</form>
+{% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+</body>
+</html>

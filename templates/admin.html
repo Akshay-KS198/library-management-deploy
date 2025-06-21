@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h2>Welcome Admin</h2>
+<div class="bookshelf">
+    <div class="book-rack">
+        <img
+          src="https://res.cloudinary.com/dk3ygxfih/image/upload/v1742022830/Rectangle_1467_t5e59d.png"
+          alt="login website logo"
+          class="website-mobile-image"
+        />
+        <h3>Available Books</h3>
+    </div>
+<ul>
+{% for b in books %}
+    <li style="font-weight: 700;">{{ b.Book }} (Available: {{ b.Availability }})</li>
+{% endfor %}
+</ul>
+</div>
+<form method="POST">
+    <label>Enter Book Name</label> <br>
+    <input type="text" name="book" placeholder="Book name" required value="{{ pending_book if pending_book else '' }}">
+    <br>
+    <label>Enter Availability</label> <br>
+    <input type="number" name="count" placeholder="Availability" value="1">
+    {% if pending_book %}
+        <button name="action" value="confirm_increase">Confirm</button>
+         <button name="action" value="go_back">Back to Menu</button>
+    {% else %}
+        <button name="action" value="add" style="background-color: rgb(206, 243, 207); color: green; font-weight: 800;">Add</button>
+        <button name="action" value="update" style="background-color: rgb(144, 159, 224); color: rgb(5, 33, 196); font-weight: 800">Update</button>
+        <button name="action" value="delete" style="background-color: rgb(240, 158, 158); color: rgb(158, 4, 4); font-weight: 800">Delete</button>
+    {% endif %}
+</form>
+   <form action="{{ url_for('logout') }}" method="GET">
+    <button type="submit" style="background-color: rgb(241, 238, 238); font-weight: 800">Logout</button>
+</form>
+
+<p>{{ message }}</p>
+</body>
+</html>

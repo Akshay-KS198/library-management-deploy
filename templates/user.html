@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h2>Welcome {{ user }}</h2>
+ <div class="bookshelf">
+    <div class="book-rack">
+        <img
+          src="https://res.cloudinary.com/dk3ygxfih/image/upload/v1742022830/Rectangle_1467_t5e59d.png"
+          alt="login website logo"
+          class="website-mobile-image"
+        />
+        <h3>Available Books</h3>
+    </div>
+<ul>
+{% for b in books %}
+    <li style="font-weight: 700;">{{ b.Book }} (Available: {{ b.Availability }})</li>
+{% endfor %}
+</ul>
+</div>
+<form method="POST">
+    <input type="text" name="book" placeholder="Book name" required>
+    <button name="action" value="borrow" style="background-color: rgb(144, 159, 224); color: rgb(5, 33, 196); font-weight: 800">Borrow</button>
+    <button name="action" value="return" style="background-color: rgb(206, 243, 207); color: green; font-weight: 800;">Return</button>
+</form>
+</form>
+   <form action="{{ url_for('logout') }}" method="GET">
+    <button type="submit" style="background-color: rgb(241, 238, 238); font-weight: 800">Logout</button>
+</form>
+<p>{{ message }}</p>
+</body>
+</html>
